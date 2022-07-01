@@ -1,3 +1,4 @@
+// Libraries
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -6,11 +7,11 @@ import Grid from '@/components/Grid';
 import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
 
+// Redux
 import {
   setFavoriteData,
   unsetFavoriteData,
 } from '../redux/favorite/favorite.slice';
-// Redux
 
 type FavoriteProps = {
   actions: any;

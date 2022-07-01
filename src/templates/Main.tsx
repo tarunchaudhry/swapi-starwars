@@ -1,6 +1,8 @@
+// Libraries
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
+// Components
 import Loader from '../components/Loader';
 
 type IMainProps = {

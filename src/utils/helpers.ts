@@ -1,5 +1,3 @@
-import { format } from 'date-fns';
-
 /**
  * Stringifies and stores data in local storage
  *
@@ -24,6 +22,7 @@ export const getFromLocalStorage = (key: string) => {
     // @ts-ignore
     return (localStorage && JSON.parse(localStorage.getItem(key))) || null;
   }
+  return null;
 };
 
 /**
@@ -93,50 +92,6 @@ export const capitaliseString = (str: string) => {
 
   // Return the joined string
   return splitStr.join(' ');
-};
-
-export function imageSize(url: string) {
-  const img = document.createElement('img');
-
-  const promise = new Promise((resolve, reject) => {
-    img.onload = () => {
-      // Natural size is the actual image size regardless of rendering.
-      // The 'normal' `width`/`height` are for the **rendered** size.
-      const width = img.naturalWidth;
-      const height = img.naturalHeight;
-
-      // Resolve promise with the width and height
-      resolve({ width, height });
-    };
-
-    // Reject promise on error
-    img.onerror = reject;
-  });
-
-  // Setting the source makes it start downloading and eventually call `onload`
-  img.src = url;
-
-  return promise;
-}
-
-export async function getImage(image: any) {
-  if (typeof image !== 'string') {
-    const url = URL.createObjectURL(image);
-    const dimensions: any = await imageSize(url);
-    return dimensions;
-  }
-  return null;
-}
-
-export const formatDateTime = (date: any, isDateOnly?: boolean) => {
-  if (!date) {
-    return '-';
-  }
-  const localData = new Date(date);
-  if (isDateOnly) {
-    return format(localData, 'dd MMMM yyyy');
-  }
-  return format(localData, 'dd/MM/yyyy hh:mm, a');
 };
 
 /**

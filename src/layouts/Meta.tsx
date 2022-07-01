@@ -1,7 +1,9 @@
+// Libraries
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
+// Next AppConfigs
 import { AppConfig } from '@/utils/AppConfig';
 
 type IMetaProps = {

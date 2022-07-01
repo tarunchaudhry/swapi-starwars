@@ -7,7 +7,7 @@ interface NFProps {
 
 function NotFound({ text, style }: NFProps) {
   return (
-    <div style={style} className="notFound">
+    <div style={style} className="notFound bg-gray-700 text-base-200">
       <p>{text}</p>
     </div>
   );

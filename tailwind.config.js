@@ -51,6 +51,6 @@ module.exports = {
       },
     },
   },
-  // @ts-ignore
+  // eslint-disable-next-line
   plugins: [require('daisyui')],
 };

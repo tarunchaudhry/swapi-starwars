@@ -1,11 +1,14 @@
+// Common Css Files
 import '../styles/global.css';
 import 'react-toastify/dist/ReactToastify.css';
 
+// Libraries
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { PersistGate } from 'redux-persist/integration/react';
 
+// Redux
 import { persister, store } from '../redux/configure-store';
 
 const MyApp = ({ Component, pageProps }: AppProps) => (

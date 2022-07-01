@@ -1,3 +1,4 @@
+// Libraries
 import _debounce from 'lodash/debounce';
 import { useCallback, useLayoutEffect, useState } from 'react';
 import { connect } from 'react-redux';
@@ -8,11 +9,11 @@ import Grid from '@/components/Grid';
 import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
 
+// Redux
 import {
   setFavoriteData,
   unsetFavoriteData,
 } from '../redux/favorite/favorite.slice';
-// Redux
 import {
   fetchCharacterData,
   fetchPlanetData,

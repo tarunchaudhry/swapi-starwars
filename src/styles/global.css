@@ -12,6 +12,7 @@ a:hover {
 
 @tailwind utilities;
 
+/* Body and Html full height*/
 body,
 html {
   @apply h-screen w-full bg-black;
@@ -36,7 +37,6 @@ html {
     text-align: center;
     border-radius: 4px;
     overflow: hidden;
-    background: #fff;
     padding: 60px 20px;
     min-height: 250px;
     display: flex;

@@ -1,3 +1,4 @@
+// Libraries
 import Link from 'next/link';
 
 // Components
@@ -18,6 +19,7 @@ const Grid = ({ actions, globalData, favoriteData, title }: GridProps) => {
   const { listFavorite } = favoriteData;
 
   const handleFavorite = (items: any) => {
+    // For handling the select and unselect of favorites.
     if (isFavorite(items.name, listFavorite)) {
       actions.unsetFavoriteData(items.name);
     } else {

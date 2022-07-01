@@ -1,6 +1,8 @@
+// Libraries
 import { toast } from 'react-toastify';
 import { call, put, takeLatest } from 'redux-saga/effects';
 
+// List of Apis
 import {
   API_GET_ALL_PLANET_DATA,
   API_GET_PEOPLE_LIST,
@@ -9,6 +11,7 @@ import {
 
 // Utils
 import { GET } from '../../utils/fetchWrapper';
+// Redux
 import {
   fetchCharacterData,
   fetchPlanetData,
@@ -34,7 +37,7 @@ function* getPersonList(actions: any) {
       yield put(setCharacterData({ data: [], error: data }));
       toast.error('Internal Server Error', { theme: 'dark' });
     }
-  } catch (response) {
+  } catch (response: any) {
     const { data } = response;
     if (data && data.errorData) {
       yield put(setCharacterData({ data: [], error: data }));
@@ -45,6 +48,7 @@ function* getPersonList(actions: any) {
   }
 }
 
+// Individual person details
 function* personDetails(actions: any) {
   const { payload } = actions;
   try {
@@ -86,12 +90,13 @@ function* personDetails(actions: any) {
   }
 }
 
+// Get All planets data
 function* getPlanetDetails(actions: any) {
   const {
     payload: { callBack },
   } = actions;
   try {
-    let planets = [];
+    let planets = new Array<any>();
     for (let count = 1; count <= 6; count += 1) {
       const { data, status } = yield call(GET, API_GET_ALL_PLANET_DATA(count));
       if (status === 200 && data.results) {

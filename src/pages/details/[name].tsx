@@ -1,3 +1,4 @@
+// Libraries
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
@@ -47,7 +48,7 @@ const Details = ({ actions, globalData, favoriteData }: IndexProps) => {
   return (
     <Main
       isLoading={isLoading}
-      meta={<Meta title="Lorem ipsum" description="Lorem ipsum" />}
+      meta={<Meta title="Detail Page" description="detail page section" />}
     >
       {userData && (
         <div className="card mx-auto w-5/6 bg-base-100 shadow-xl">
@@ -137,27 +138,39 @@ const Details = ({ actions, globalData, favoriteData }: IndexProps) => {
               <div className="pl-0">
                 <h2 className="card-title mb-3 text-xl">Movies</h2>
                 <ul>
-                  {filmsValues.map((items: any) => (
-                    <li
-                      className="relative mb-3 flex text-gray-900"
-                      key={items.title}
-                    >
-                      {items.title}
+                  {filmsValues && filmsValues.length <= 0 ? (
+                    <li className="relative mb-3 flex text-gray-900">
+                      Not Films Found
                     </li>
-                  ))}
+                  ) : (
+                    filmsValues.map((items: any) => (
+                      <li
+                        className="relative mb-3 flex text-gray-900"
+                        key={items.title}
+                      >
+                        {items.title}
+                      </li>
+                    ))
+                  )}
                 </ul>
               </div>
               <div className="pl-4">
                 <h2 className="card-title mb-3 text-xl">Starships</h2>
                 <ul>
-                  {starShipValues.map((items: any) => (
-                    <li
-                      className="relative mb-3 flex text-gray-900"
-                      key={items.name}
-                    >
-                      {items.name}
+                  {starShipValues && starShipValues.length <= 0 ? (
+                    <li className="relative mb-3 flex text-gray-900">
+                      Not Starships Found
                     </li>
-                  ))}
+                  ) : (
+                    starShipValues.map((items: any) => (
+                      <li
+                        className="relative mb-3 flex text-gray-900"
+                        key={items.name}
+                      >
+                        {items.name}
+                      </li>
+                    ))
+                  )}
                 </ul>
               </div>
             </div>
