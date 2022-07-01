@@ -1,15 +1,18 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
+import Loader from '../components/Loader';
+
 type IMainProps = {
   meta: ReactNode;
   children: ReactNode;
+  isLoading: boolean;
 };
 
 const Main = (props: IMainProps) => (
-  <div className="w-full bg-black px-1 text-gray-700 antialiased">
+  <div className="w-full bg-black py-2 px-4 text-gray-700 antialiased">
     {props.meta}
-
+    <Loader loading={props.isLoading} noDelay />
     <div className="mx-auto max-w-screen-xl">
       <div className="border-b border-gray-300">
         <div className=" m-auto max-w-screen-md pt-16 pb-8">

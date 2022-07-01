@@ -1,22 +1,56 @@
-import { useEffect } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+// Components
+import Grid from '@/components/Grid';
 import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
 
+import {
+  setFavoriteData,
+  unsetFavoriteData,
+} from '../redux/favorite/favorite.slice';
 // Redux
-import { fetchCharacterData } from '../redux/global/global.slice';
+import {
+  fetchCharacterData,
+  fetchPlanetData,
+} from '../redux/global/global.slice';
 
-const Index = ({ actions, globalData }) => {
-  // const router = useRouter();
-  const { list } = globalData;
-  useEffect(() => {
-    actions.fetchCharacterData();
-  }, []);
+type IndexProps = {
+  actions: any;
+  globalData: any;
+  favoriteData: any;
+};
+
+const Index = ({ actions, globalData, favoriteData }: IndexProps) => {
+  const [page, setPage] = useState(1);
+  const { isLoading } = globalData;
+
+  const getData = (pageNum: number) => {
+    actions.fetchCharacterData(pageNum);
+  };
+
+  useLayoutEffect(() => {
+    actions.fetchPlanetData({
+      callBack: () => {
+        getData(page);
+      },
+    });
+  }, [actions]);
+
+  const onPreviousPage = () => {
+    setPage(page - 1);
+    getData(page - 1);
+  };
+  const onNextPage = () => {
+    setPage(page + 1);
+    getData(page + 1);
+  };
 
   return (
     <Main
+      isLoading={isLoading}
       meta={
         <Meta
           title="Swapi StartWars"
@@ -24,41 +58,43 @@ const Index = ({ actions, globalData }) => {
         />
       }
     >
-      <ul className="grid grid-cols-3 gap-4 ">
-        {list?.data.map((items: any) => (
-          <li className="flex text-base-200" key={items.name}>
-            <div className="card w-96 bg-gray-700 shadow-xl">
-              <figure>
-                <img
-                  src="https://api.lorem.space/image/shoes?w=400&h=225"
-                  alt="Shoes"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">{items.name}</h2>
-                <p className="m-0">Gender: {items.gender}</p>
-                <p className="m-0">Birth Year: {items.birth_year}</p>
-                <p className="m-0">Home Planet: {items.homeworld}</p>
-                <div className="card-actions mt-3 justify-end">
-                  <button className="btn btn-primary">View Details</button>
-                </div>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <div className="mb-8 mt-3 flex justify-center">
+        <input
+          type="text"
+          placeholder="Type here"
+          className="input-bordered input w-full max-w-xs"
+        />
+      </div>
+      <Grid
+        title={`Character List`}
+        actions={actions}
+        globalData={globalData}
+        favoriteData={favoriteData}
+      />
+      <div className="pagination-wrap btn-group grid grid-cols-2 py-8">
+        <button className="btn" onClick={onPreviousPage} disabled={page < 2}>
+          Previous page
+        </button>
+        <button className="btn" onClick={onNextPage}>
+          Next
+        </button>
+      </div>
     </Main>
   );
 };
 
-const mapStateToProps = ({ globalData }: any) => ({
+const mapStateToProps = ({ globalData, favoriteData }: any) => ({
   globalData,
+  favoriteData,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
   actions: bindActionCreators(
     {
       fetchCharacterData,
+      fetchPlanetData,
+      setFavoriteData,
+      unsetFavoriteData,
     },
     dispatch
   ),

@@ -9,7 +9,7 @@ import { rootSaga } from './rootSaga';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['globalData'],
+  blacklist: ['globalData'],
 };
 const DEV_ENV = process.env.NODE_ENV === 'development';
 

@@ -95,73 +95,6 @@ export const capitaliseString = (str: string) => {
   return splitStr.join(' ');
 };
 
-const getFormattedRows = (data: any) => {
-  const formatDocs = data.map((item: any) => {
-    if (item) {
-      return {
-        ...item,
-      };
-    }
-    return item;
-  });
-  return formatDocs;
-};
-
-/**
- * Get Formatted row data for the table
- * @param {any} categoryList - List of all category
- * @param {any} router - Router path and function
- * @returns {string}
- */
-export const getTableRowData = (
-  data: any,
-  headerData: any,
-  isRows?: boolean
-) => {
-  if (data && data.length) {
-    const formattedDocs = {
-      rows: getFormattedRows(data),
-      header: headerData,
-      pagination: {},
-    };
-    if (isRows) {
-      return formattedDocs.rows;
-    }
-    return formattedDocs;
-  }
-  return [];
-};
-
-export const getRowData = (row: any, header: any) => {
-  if (row && header && header.accessor) {
-    if (row[header.accessor]) {
-      return row[header.accessor];
-    }
-    return '-';
-  }
-  return '-';
-};
-
-export const getRowSecondData = (row: any, header: any, acc: string) => {
-  if (row && header && header[acc]) {
-    return row[header[acc]];
-  }
-  return '-';
-};
-
-export const getTitleData = (row: any, header: any) => {
-  if (row && header && header.title) {
-    return row[header.title];
-  }
-  if (row && header && header.accessor) {
-    if (row[header.accessor]) {
-      return row[header.accessor];
-    }
-    return '-';
-  }
-  return '-';
-};
-
 export function imageSize(url: string) {
   const img = document.createElement('img');
 
@@ -206,40 +139,6 @@ export const formatDateTime = (date: any, isDateOnly?: boolean) => {
   return format(localData, 'dd/MM/yyyy hh:mm, a');
 };
 
-export const getErrorMessage = (
-  serverMsg: string,
-  formMsg1: any,
-  formMsg2: any
-) => {
-  if (formMsg1 && formMsg1.message) {
-    return formMsg1?.message;
-  }
-  if (formMsg2 && formMsg2.message) {
-    return formMsg2?.message;
-  }
-  if (serverMsg) {
-    return serverMsg;
-  }
-  return '';
-};
-
-export const formatPermission = (data: any) => {
-  let permissions: Array<any> = [];
-  if (data && data.departments && data.departments.length) {
-    data.departments.forEach((items: any) => {
-      if (
-        items.role &&
-        items.role.permissions &&
-        items.role.permissions.length
-      ) {
-        permissions = [...permissions, ...items.role.permissions];
-      }
-    });
-    return permissions;
-  }
-  return permissions;
-};
-
 /**
  * Rounding for PaymentList page
  * @params num
@@ -248,4 +147,27 @@ export const formatPermission = (data: any) => {
 
 export const customRound = (num: number) => {
   return Math.round(100 * num) / 100;
+};
+
+/**
+ * Get Planet Name for PaymentList page
+ * @params url string
+ * @return string
+ */
+export const getPlanetName = (url: string, planets: any) => {
+  const planet = planets.find((items: any) => items.url === url);
+  return (planet && planet.name) || '-';
+};
+
+/**
+ * Get character value
+ * @params name string
+ * @return boolean
+ */
+export const isFavorite = (name: string, data: any) => {
+  if (data && data.length && name) {
+    const isAvailable = data.find((items: any) => items.name === name);
+    return isAvailable;
+  }
+  return null;
 };
