@@ -1,5 +1,7 @@
-### Features
+### Live URL
+- URL - [https://swapi-starwars.vercel.app/](https://swapi-starwars.vercel.app/)
 
+### Features
 Developer experience first:
 
 - ⚡ [Next.js](https://nextjs.org) for Static Site Generator
