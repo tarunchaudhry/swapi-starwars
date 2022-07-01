@@ -1,5 +1,8 @@
 import Link from 'next/link';
 
+// Components
+import NotFound from '@/components/NotFound';
+
 // Utils
 import { getPlanetName, isFavorite } from '../../utils/helpers';
 
@@ -25,6 +28,7 @@ const Grid = ({ actions, globalData, favoriteData, title }: GridProps) => {
     <>
       <h2 className="mx-0 mt-3 mb-8 text-3xl text-base-300">{title}</h2>
       <ul className="grid grid-cols-3 gap-4 ">
+        {list && list?.data?.length <= 0 && <NotFound text="No Data Found" />}
         {list &&
           list?.data?.map((items: any) => (
             <li className="relative flex text-base-200" key={items.name}>

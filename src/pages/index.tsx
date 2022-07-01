@@ -1,4 +1,5 @@
-import { useLayoutEffect, useState } from 'react';
+import _debounce from 'lodash/debounce';
+import { useCallback, useLayoutEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -25,27 +26,45 @@ type IndexProps = {
 
 const Index = ({ actions, globalData, favoriteData }: IndexProps) => {
   const [page, setPage] = useState(1);
-  const { isLoading } = globalData;
+  const [search, setSearch] = useState('');
+  const {
+    isLoading,
+    planets,
+    list: { next },
+  } = globalData;
 
-  const getData = (pageNum: number) => {
-    actions.fetchCharacterData(pageNum);
+  const getData = (pageNum: number, searchText: string) => {
+    const req = {
+      searchText,
+      pageNum,
+    };
+    actions.fetchCharacterData(req);
   };
 
   useLayoutEffect(() => {
-    actions.fetchPlanetData({
-      callBack: () => {
-        getData(page);
-      },
-    });
+    if (planets && planets.length) {
+      getData(page, search);
+    } else {
+      actions.fetchPlanetData({
+        callBack: () => {
+          getData(page, search);
+        },
+      });
+    }
   }, [actions]);
 
   const onPreviousPage = () => {
     setPage(page - 1);
-    getData(page - 1);
+    getData(page - 1, search);
   };
   const onNextPage = () => {
     setPage(page + 1);
-    getData(page + 1);
+    getData(page + 1, search);
+  };
+  const debounceFn = useCallback(_debounce(getData, 800), []);
+  const handleSearch = (event: any) => {
+    setSearch(event.target.value);
+    debounceFn(page, event.target.value);
   };
 
   return (
@@ -63,6 +82,8 @@ const Index = ({ actions, globalData, favoriteData }: IndexProps) => {
           type="text"
           placeholder="Type here"
           className="input-bordered input w-full max-w-xs"
+          value={search}
+          onChange={handleSearch}
         />
       </div>
       <Grid
@@ -75,7 +96,7 @@ const Index = ({ actions, globalData, favoriteData }: IndexProps) => {
         <button className="btn" onClick={onPreviousPage} disabled={page < 2}>
           Previous page
         </button>
-        <button className="btn" onClick={onNextPage}>
+        <button className="btn" disabled={!next} onClick={onNextPage}>
           Next
         </button>
       </div>

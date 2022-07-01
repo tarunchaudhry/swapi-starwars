@@ -22,9 +22,14 @@ import {
 function* getPersonList(actions: any) {
   const { payload } = actions;
   try {
-    const { data, status } = yield call(GET, API_GET_PEOPLE_LIST(payload));
+    const { data, status } = yield call(
+      GET,
+      API_GET_PEOPLE_LIST(payload.pageNum, payload.searchText)
+    );
     if (status === 200 && data.results) {
-      yield put(setCharacterData({ data: data.results, error: {} }));
+      yield put(
+        setCharacterData({ data: data.results, error: {}, next: data.next })
+      );
     } else {
       yield put(setCharacterData({ data: [], error: data }));
       toast.error('Internal Server Error', { theme: 'dark' });
@@ -45,10 +50,30 @@ function* personDetails(actions: any) {
   try {
     const { data, status } = yield call(GET, API_GET_SEARCH_DATA(payload));
     if (status === 200 && data.results) {
-      yield put(setPersonDetails({ data: data?.results?.[0], error: {} }));
-    } else {
-      yield put(setPersonDetails({ data: [], error: data }));
-      toast.error('Internal Server Error', { theme: 'dark' });
+      const userData = data?.results?.[0];
+      let filmsValues = new Array<any>();
+      let starShipValues = new Array<any>();
+      const { films, starships } = userData;
+      for (let count = 0; count <= films.length - 1; count += 1) {
+        const urlFilm = films[count];
+        const response = yield call(GET, urlFilm);
+        if (response.status === 200 && response.data) {
+          yield (filmsValues = [...filmsValues, ...[response.data]]);
+        }
+      }
+      for (let count1 = 0; count1 <= starships.length - 1; count1 += 1) {
+        const urlStar = starships[count1];
+        const response2 = yield call(GET, urlStar);
+        if (response2.status === 200 && response2.data) {
+          yield (starShipValues = [...starShipValues, ...[response2.data]]);
+        }
+      }
+      const payLoad = {
+        userData,
+        filmsValues,
+        starShipValues,
+      };
+      yield put(setPersonDetails({ data: payLoad, error: {} }));
     }
   } catch (response) {
     const { data } = response;

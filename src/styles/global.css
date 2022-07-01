@@ -31,6 +31,23 @@ html {
 .loader-wrapper svg {
   display: none;
 }
+
+.notFound {
+    text-align: center;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fff;
+    padding: 60px 20px;
+    min-height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notFound p {
+    font-size: 22px;
+    font-weight: 500;
+}
 .blobs {
   filter: url(#goo);
   width: 300px;

@@ -5,12 +5,15 @@ interface GlobalState {
   list: any;
   isLoading: boolean;
   userDetails: any;
+  planets: any;
+  error: any;
 }
 
 const initialState = {
   list: {
     data: [],
     error: {},
+    next: null,
   },
   planets: [],
   userDetails: {},
