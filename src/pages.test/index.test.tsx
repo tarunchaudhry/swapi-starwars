@@ -48,9 +48,6 @@ describe('Home page should render', () => {
         favoriteData={FavoriteData}
       />
     );
-    const {
-      list: { data },
-    } = GlobaData;
     const searchInput = screen.getByPlaceholderText('Type here');
     expect(searchInput).toBeInTheDocument();
     fireEvent.change(searchInput, { target: { value: 'Luke Skywalker' } });
@@ -65,9 +62,6 @@ describe('Home page should render', () => {
         favoriteData={FavoriteData}
       />
     );
-    const {
-      list: { data },
-    } = GlobaData;
     const previousBtn = screen.getByText('Previous page');
     const nextButton = screen.getByText('Next');
     expect(previousBtn).toBeInTheDocument();
