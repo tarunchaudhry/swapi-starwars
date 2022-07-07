@@ -31,7 +31,7 @@ export default function Loader({ loading, noDelay }: LoaderProps) {
   const isVisible = noDelay ? loading : isLoad;
   if (isVisible) {
     return (
-      <div className="loader-wrapper">
+      <div className="loader-wrapper" data-testid="custom-loader">
         <div className="blobs">
           <div className="blob-center"></div>
           <div className="blob"></div>

@@ -25,7 +25,7 @@ type IndexProps = {
   favoriteData: any;
 };
 
-const Index = ({ actions, globalData, favoriteData }: IndexProps) => {
+export const Index = ({ actions, globalData, favoriteData }: IndexProps) => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const {

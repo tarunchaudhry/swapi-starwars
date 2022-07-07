@@ -8,7 +8,7 @@ interface NFProps {
 function NotFound({ text, style }: NFProps) {
   return (
     <div style={style} className="notFound bg-gray-700 text-base-200">
-      <p>{text}</p>
+      <p data-testId={'not-found-text'}>{text}</p>
     </div>
   );
 }

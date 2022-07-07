@@ -19,7 +19,11 @@ type FavoriteProps = {
   favoriteData: any;
 };
 
-const Favorite = ({ actions, globalData, favoriteData }: FavoriteProps) => {
+export const Favorite = ({
+  actions,
+  globalData,
+  favoriteData,
+}: FavoriteProps) => {
   const { planets, isLoading } = globalData;
   const { listFavorite } = favoriteData;
 
@@ -57,4 +61,5 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch
   ),
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(Favorite);

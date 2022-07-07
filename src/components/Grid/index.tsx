@@ -33,12 +33,17 @@ const Grid = ({ actions, globalData, favoriteData, title }: GridProps) => {
         {list && list?.data?.length <= 0 && <NotFound text="No Data Found" />}
         {list &&
           list?.data?.map((items: any) => (
-            <li className="relative flex text-base-200" key={items.name}>
+            <li
+              className="relative flex text-base-200"
+              key={items.name}
+              data-testid="view-details-card"
+            >
               <div className="card w-96 bg-gray-700 shadow-xl">
                 <div className="absolute top-1 right-1 z-10">
                   <button
                     onClick={() => handleFavorite(items)}
                     className="btn btn-ghost"
+                    data-testid="heart-icon"
                   >
                     <svg
                       version="1.1"

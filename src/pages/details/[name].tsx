@@ -23,7 +23,7 @@ type IndexProps = {
   favoriteData: any;
 };
 
-const Details = ({ actions, globalData, favoriteData }: IndexProps) => {
+export const Details = ({ actions, globalData, favoriteData }: IndexProps) => {
   const router = useRouter();
   const { listFavorite } = favoriteData;
   const {
@@ -56,6 +56,7 @@ const Details = ({ actions, globalData, favoriteData }: IndexProps) => {
             <button
               onClick={() => handleFavorite(userData)}
               className="btn btn-ghost"
+              data-testid="favorite-btn"
             >
               <svg
                 version="1.1"

@@ -1,4 +1,4 @@
-const API_HOST = `https://swapi.dev/api`;
+export const API_HOST = `https://swapi.dev/api`;
 
 // API
 // Api for get all Characters of star wars
